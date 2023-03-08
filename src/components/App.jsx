@@ -1,7 +1,7 @@
 
 import { useSelector, useDispatch } from 'react-redux';
 import {  useEffect } from 'react';
-// import { addContact, deleteContact } from 'redux/contacts/contacts-slice'; 
+
 import { fetchContacts, fetchAddContact, fetchDeleteContact } from 'redux/contacts/contact-operation';
 import { getFilterContacts } from '../redux/contacts/contacts-selector';
 import { getFilter } from '../redux/filter/filter-selector'; 
@@ -19,7 +19,7 @@ const App = () => {
   const filteredContacts = useSelector(getFilterContacts);
   const filter = useSelector(getFilter);
 
-console.log()
+
 
   useEffect(() => {
     dispatch(fetchContacts());
