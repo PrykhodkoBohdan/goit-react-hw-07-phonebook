@@ -1,9 +1,12 @@
 
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact, deleteContact } from 'redux/contacts/contacts-slice'; 
-import { getFilterContacts } from 'redux/contacts/contacts-selector';
-import { getFilter } from 'redux/filter/filter-selector'; 
-import { setFilter } from 'redux/filter/filter-slice'; 
+import {  useEffect } from 'react';
+// import { addContact, deleteContact } from 'redux/contacts/contacts-slice'; 
+import { fetchContacts, fetchAddContact, fetchDeleteContact } from 'redux/contacts/contact-operation';
+import { getFilterContacts } from '../redux/contacts/contacts-selector';
+import { getFilter } from '../redux/filter/filter-selector'; 
+import { setFilter } from '../redux/filter/filter-slice'; 
+
 
 import Form from './Form/Form';
 import Section from './Section/Sextion';
@@ -12,9 +15,16 @@ import Filter from './Filter/Filter';
 
 const App = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector((state) => state.contacts);
+  const contacts = useSelector(store => store.contacts.items);
   const filteredContacts = useSelector(getFilterContacts);
   const filter = useSelector(getFilter);
+
+console.log()
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+
+  }, [dispatch]);
 
   const handleFormSubmit = ({ name, number }) => {
     const isContactExists = contacts.some(
@@ -26,11 +36,11 @@ const App = () => {
       return;
     }
 
-    dispatch(addContact({ name, number }));
+    dispatch(fetchAddContact({ name, number }));
   };
 
   const handleDeleteContact = (id) => {
-    dispatch(deleteContact(id));
+    dispatch(fetchDeleteContact (id));
   };
 
   return (
@@ -42,7 +52,7 @@ const App = () => {
       <Section title="Contacts">
         <Filter value={filter} onChange={({ target }) => dispatch(setFilter(target.value))} />
         <Contacts
-          contacts={filteredContacts}
+          contacts={filteredContacts.items}
           onDeleteBtnClick={handleDeleteContact}
         />
       </Section>

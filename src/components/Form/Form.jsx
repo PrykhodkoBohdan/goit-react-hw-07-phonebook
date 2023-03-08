@@ -2,14 +2,13 @@ import {useState} from 'react';
 import PropTypes from 'prop-types'
 import initialState from './initialState';
 import css from './Form.module.css';
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 
 
 const Form = ({onSubmit})=> {
 
 const [state, setState] = useState({...initialState})
 
- const nameId = uuidv4();
 
     const handleInputChange = ({target}) => {
         const {name, value} = target;
@@ -20,7 +19,7 @@ const [state, setState] = useState({...initialState})
 
     const handleSubmit = e => {
         e.preventDefault();
-        onSubmit({...state});
+        onSubmit({name, number});
         setState({...initialState});
     }
 
@@ -29,7 +28,7 @@ const [state, setState] = useState({...initialState})
  return (
         <div className={css.container}>
           <form className={css.form} onSubmit={handleSubmit}>
-            <label htmlFor={nameId}>
+            <label >
               <p className={css.form__label}>Name</p>
               <input
                 type="text"
@@ -39,7 +38,7 @@ const [state, setState] = useState({...initialState})
                 className={css.form__firstInput}
                 value={name}
                 onChange={handleInputChange}
-                id={nameId}
+                
                 placeholder="Enter name"
                 required
               ></input>

@@ -5,13 +5,13 @@ import css from './Contacts.module.css';
 const Contacts = ({ contacts, onDeleteBtnClick }) => (
   <div>
     <ol className={css.number_item}>
-      {contacts.map(person => (
-        <li key={person.id} className={css.search__contact}>
-          {person.name} : {person.number}
+      {contacts.map(({name, number, id}) => (
+        <li key={id} className={css.search__contact}>
+          {name} : {number}
           <button
             className={css.search__button}
             type="button"
-            onClick={() => onDeleteBtnClick(person.id)}
+            onClick={() => onDeleteBtnClick(id)}
           >
             Delete
           </button>
