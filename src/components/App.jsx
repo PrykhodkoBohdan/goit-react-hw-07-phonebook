@@ -22,9 +22,6 @@ const App = () => {
   const filteredContacts = useSelector(getFilterContacts);
   const filter = useSelector(getFilter);
 
-if(0<1){
-  toast.success('Contact added successfully');
-}
 
 useEffect(() => {
   try {
