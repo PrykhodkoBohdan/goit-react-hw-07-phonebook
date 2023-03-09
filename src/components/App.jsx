@@ -14,8 +14,8 @@ import Contacts from './Contacts/Contacts';
 import Filter from './Filter/Filter';
 
 import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 const App = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(store => store.contacts.items);
@@ -58,26 +58,28 @@ const handleDeleteContact = (id) => {
   }
 };
 
-  return (
-    <>
-      <Section title="Phonebook">
-        <Form onSubmit={handleFormSubmit} />
-      </Section>
-      <Section title="Contacts">
-    
-        <Filter value={filter}  onChange={({ target }) => dispatch(setFilter(target.value))} />
-       
-        {contacts.length ? (
-  <Contacts
-    contacts={filteredContacts}
-    onDeleteBtnClick={handleDeleteContact}
-  />
-) : (
-  <p>No contacts yet</p>
-)}   
-      </Section>
-    </>
-  );
+return (
+  <>
+    <ToastContainer />
+    <Section title="Phonebook">
+      <Form onSubmit={handleFormSubmit} />
+    </Section>
+    <Section title="Contacts">
+      <Filter
+        value={filter}
+        onChange={({ target }) => dispatch(setFilter(target.value))}
+      />
+      {contacts.length ? (
+        <Contacts
+          contacts={filteredContacts}
+          onDeleteBtnClick={handleDeleteContact}
+        />
+      ) : (
+        <p>No contacts yet</p>
+      )}
+    </Section>
+  </>
+);
 };
 
 export default App;
